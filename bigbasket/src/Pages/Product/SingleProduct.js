@@ -32,6 +32,7 @@ export function SingleProduct() {
   const {id} = useParams();
   const products = useSelector((store) => store.products.products );
   const [currentProduct,setCurrentProduct] = useState({});
+  
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -43,10 +44,12 @@ export function SingleProduct() {
   useEffect(()=> {
     if(id){
       const product = products.find((item) => item.id === Number(id) );
-      // console.log("product",product);
-      product && setCurrentProduct(product);
+      
+      product && setCurrentProduct(product) ;
     }
+    
   },[id,products])
+
 
   
 
@@ -123,7 +126,7 @@ export function SingleProduct() {
               </Text>
               <Text>{currentProduct.name}</Text>
               <Text>
-                MRP. <strike>Rs. 74.13</strike>{' '}
+                MRP. <strike>Rs. {currentProduct.price + (0.35* currentProduct.price)}</strike>{' '}
               </Text>
               <Text>Price: Rs.{currentProduct.price}</Text>
               <Text>You Save: 35%</Text>
@@ -142,14 +145,14 @@ export function SingleProduct() {
               <Text>Pack Sizes</Text>
               <Box display="flex" flexDirection="column">
                 <Button className="one" onClick={highlightBtn} ref={btnRef1}>
-                  2kg Rs.48 MRP: <strike>Rs.74.13</strike> <span>35% off</span>{' '}
+                  2kg Rs.{2*(currentProduct.price)} &nbsp; MRP: <strike>{2*(currentProduct.price + (0.35* currentProduct.price))}</strike><span>&nbsp; 35% off</span>{' '}
                 </Button>
                 <Button className="two" onClick={highlightBtn2} ref={btnRef2}>
-                  1kg Rs.24 MRP: <strike>Rs.36.13</strike> <span>34% off</span>{' '}
+                  1kg Rs.{1*(currentProduct.price)} &nbsp; MRP: <strike>{(currentProduct.price + (0.35* currentProduct.price))}</strike> <span>&nbsp; 34% off</span>{' '}
                 </Button>
                 <Button className="three" onClick={highlightBtn3} ref={btnRef3}>
-                  5kg Rs.120 MRP: <strike>Rs.184.13</strike>{' '}
-                  <span>35% off</span>{' '}
+                  5kg Rs.{5*(currentProduct.price)} &nbsp; MRP: <strike>{5*(currentProduct.price + (0.35* currentProduct.price))}</strike>{' '}
+                  <span> &nbsp;35% off</span>{' '}
                 </Button>
               </Box>
             </Box>

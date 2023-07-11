@@ -5,6 +5,7 @@ import {
   InputGroup,
   InputRightAddon,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.jpeg";
 import "./navbar_main.css";
@@ -24,19 +25,28 @@ import { Usert_logout_request } from "../../Redux/auth/actions";
 // import Login from "../../Pages/Login/Login";
 // import Signup from "../../Pages/Signup/Signup";
 const NavbarMain = () => {
-  const dispatch=useDispatch()
-  const {auth_sucess,auth_error,auth_load,user}=useSelector((store)=>store.auth)
+  const dispatch = useDispatch()
+  const { auth_sucess, auth_error, auth_load, user } = useSelector((store) => store.auth)
   // const [user, setUser] = useState(false);
   const [isShown, setIsShown] = useState(false);
+  let toast= useToast()
   let LC_USER = JSON.parse(localStorage.getItem("user")) || null;
-  // useEffect(() => {
-  //   if (LC_USER) {
-  //     setUser(true);
-  //   } else {
-  //     setUser(false);
-  //   }
-  // }, [LC_USER]);
-  useEffect(() => {}, [isShown]);
+
+  function handleLogout() {
+
+    dispatch(Usert_logout_request())
+    localStorage.removeItem('user')
+    toast({
+      title: 'Logout Successful',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+      position: "top"
+    })
+
+  }
+
+  useEffect(() => { }, [isShown]);
   // console.log(isShown);
 
   let cartQty = useSelector((store) => store.cart);
@@ -47,24 +57,24 @@ const NavbarMain = () => {
       <Box className="main">
         <Box className="navbar">
           <Box className="box-1">
-            <Box display="flex" textAline="center" justifyContent={"center"}>
+            <Box display="flex" textAlign="center" justifyContent={"center"}>
               {" "}
               <BsTelephone fontSize={18} /> 1860 123 1000{" "}
             </Box>
-            <Box display="flex" textAline="center">
+            <Box display="flex" textAlign="center">
               <Location />
             </Box>
-            <Box display="flex" textAline="center">
-              {auth_sucess ? (
-                <CiLogout fontSize={20} onClick={()=>dispatch(Usert_logout_request())} />
+            <Box display="flex" textAlign="center">
+              {LC_USER ? (
+                <CiLogout fontSize={20} onClick={handleLogout} />
               ) : (
                 <CgProfile fontSize={20} />
               )}{" "}
-              {auth_sucess ? (
+              {LC_USER ? (
                 <Text
                   onClick={() => {
                   }}
-                >{`${user}`}</Text>
+                >{`${LC_USER}`}</Text>
               ) : (
                 <Link to={"/login"}> Login / SignUp</Link>
               )}
@@ -72,14 +82,14 @@ const NavbarMain = () => {
           </Box>
           <Box className="box-2">
             <Link to="/">
-            <Image
-              w="200px"
-              h="80px"
-              mt="-25px"
-              objectFit="contain"
-              src={logo}
-              alt="my basket"
-            />
+              <Image
+                w="200px"
+                h="80px"
+                mt="-25px"
+                objectFit="contain"
+                src={logo}
+                alt="my basket"
+              />
             </Link>
             <Box width="50%" border="0.5px solid #70716f " borderRadius={5}>
               <InputGroup size="sm" width="100%">

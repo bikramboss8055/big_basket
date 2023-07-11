@@ -3,7 +3,8 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import React, { useState } from 'react'
 import "../../Pages/Checkout/Styles/payment.css"
 import Pin from '../../Components/CheckoutComps/Pin'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {clearCart} from '../../Redux/cart/actions'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ const Payment = () => {
   const [note, setNote] = useState("")
   const cartData=useSelector((store)=>store.cart.cartData)
   const navigate=useNavigate()
+  const dispatch = useDispatch()
   // console.log(cartData)
   let totalmrp=0;
     let discount=0;
@@ -29,6 +31,7 @@ const Payment = () => {
     total+=Number(totalmrp-Math.round(discount))
 
     const handlesuccess=()=>{
+      dispatch(clearCart())
       navigate('/')
     }
 console.log(divchange)

@@ -86,7 +86,7 @@ const Home = () => {
       {/* -----------------------Offers----------------------------- */}
       <Box className="newOff">
         {off?.map((el, index) => {
-          return <Image key={index} src={el} alt="offes on products" />;
+          return <Image key={el.id} src={el} alt="offes on products" />;
         })}
         <Image />
       </Box>
@@ -105,7 +105,7 @@ const Home = () => {
       </Text>
       <Box className="bank-offers" mb="50px">
         {bank_off?.map((el, index) => {
-          return <Image key={index} src={el} alt="offes on products" />;
+          return <Image key={el.id} src={el} alt="offes on products" />;
         })}
       </Box>
       {/* -----------------------Bank End---------------------------- */}
@@ -124,7 +124,7 @@ const Home = () => {
       </Text>
       <Box className="bank-offers">
         {top_off?.map((el, index) => {
-          return <Image key={index} src={el} alt="offes on products" />;
+          return <Image key={el.id} src={el} alt="offes on products" />;
         })}
       </Box>
       {/* -----------------------Top Offers End---------------------------- */}
@@ -142,7 +142,7 @@ const Home = () => {
       </Text>
       <Box className="FnV">
         {FandV?.map((el, index) => {
-          return <Link to={`/products/vegetables`}><Image key={index} src={el} alt=" products" /> </Link>;
+          return <Link to={`/products/vegetables`}><Image key={el.id} src={el} alt=" products" /> </Link>;
         })}
       </Box>
 
@@ -161,7 +161,7 @@ const Home = () => {
       </Text>
       <Box className="FnV">
         {dalyStaple?.map((el, index) => {
-          return <Image key={index} src={el} alt="products" />;
+          return <Image key={el.id} src={el} alt="products" />;
         })}
       </Box>
 
@@ -183,7 +183,7 @@ const Home = () => {
         
           return (
             <Image
-              key={index}
+              key={el.id}
               src={el}
               className={"bev" + (index + 1)}
               alt="products"
@@ -205,7 +205,7 @@ const Home = () => {
       </Text>
       <Box className="FnV">
         {Snacks?.map((el, index) => {
-          return <Link to="/products/SNACKS & BRANDED FOODS"> <Image key={index} src={el} alt=" products" /> </Link>;
+          return <Link to="/products/SNACKS & BRANDED FOODS"> <Image key={el.id} src={el} alt=" products" /> </Link>;
         })}
       </Box>
 
@@ -223,7 +223,7 @@ const Home = () => {
       </Text>
       <Box className="bank-offers">
         {CleaningH?.map((el, index) => {
-          return <Link to="/products/CLEANING & HOUSEHOLD"><Image key={index} src={el} alt="cleaning households" /> </Link>;
+          return <Link to="/products/CLEANING & HOUSEHOLD"><Image key={el.id} src={el} alt="cleaning households" /> </Link>;
         })}
       </Box>
 
@@ -244,7 +244,7 @@ const Home = () => {
          
           return (
             <Image
-              key={index}
+              key={el.id}
               src={el}
               className={"bev" + (index + 1)}
               alt="products"
@@ -277,7 +277,7 @@ const Home = () => {
       <br />
       <Box className="FnV">
         {Brand?.map((el, index) => {
-          return <Image key={index} src={el} alt=" products" />;
+          return <Image key={el.id} src={el} alt=" products" />;
         })}
       </Box>
 

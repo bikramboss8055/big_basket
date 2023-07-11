@@ -46,7 +46,7 @@ function hendleSubmit(){
 dispatch(UserSingin_request(loginCred))
 .then(res=>(res.type=="Singin_sucess")?(navigate("/login")):(toast({
   title: 'Ragistretion Fail',
-  description: "Try to ragister again",
+  description: "Try to ragister again with another email",
   status: 'error',
   duration: 2000,
   isClosable: true,
@@ -69,7 +69,7 @@ console.log(auth_state)
   return (
     <>
      {auth_state.auth_load?(<div>
-     <Text className="loading" >Plz wait....</Text>
+      <img className="loading" src="https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87_w200.webp"/>
     </div>):("")}
       <Box
         w={"355px"}

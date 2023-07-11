@@ -1,7 +1,10 @@
 .loading{
     position:absolute;
+    width: 50px;
+   
     z-index: 200;
-    top:25%;
-    left:45%;
+    left: 50%;
+    top: 50%;
+    transform: translate(100%, -50%);
     filter: blur(5);
 }

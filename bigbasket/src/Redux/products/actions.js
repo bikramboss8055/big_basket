@@ -21,10 +21,10 @@ export const getProductError = () => {
 export const getProducts = (params) => (dispatch) => {
   dispatch(getProductRequest());
   return axios
-    .get(`https://bigbasket-server.onrender.com/products`, params)
+    .get(`https://json-server-vercel-drab.vercel.app/products`, params)
     .then((r) => {
       dispatch(getProductSuccess(r.data));
-      console.log(r.data);
+      
     })
     .catch((err) => dispatch(getProductError()));
 };

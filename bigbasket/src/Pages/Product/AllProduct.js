@@ -332,7 +332,7 @@ export function AllProduct() {
 
             {products.length === 0 ? <Text w="350px" ml="400px" fontSize="lg" >No Product available with this rating...</Text> : products?.map((item) => {
               return (
-                <ProductCard item={item} />
+                <ProductCard item={item} key={item.id}/>
               )
             })}
 

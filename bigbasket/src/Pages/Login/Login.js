@@ -10,6 +10,7 @@ import {
   Text,
   IconButton,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -17,55 +18,67 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { UserLogin_request } from "../../Redux/auth/actions";
-import {useDispatch,useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 export default function Login() {
   let [theme, setTheme] = useState(false);
   let [passwordVisible, setPasswordVisible] = useState(false);
   let toast = useToast();
-const dispatch=useDispatch()
-const auth_state=useSelector((store)=>store.auth)
+  const dispatch = useDispatch()
+  const auth_state = useSelector((store) => store.auth)
   let [loginCred, setLoginCred] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
 
-  const hendleChange=(e)=>{
-    const {name,value}=e.target
-    setLoginCred({...loginCred,[name]:value})
-}
+  const hendleChange = (e) => {
+    const { name, value } = e.target
+    setLoginCred({ ...loginCred, [name]: value })
+  }
 
-function hendleSubmit(){
-  // console.log(loginCred)
-dispatch(UserLogin_request(loginCred))
-.then(res=>(res.type=="Login_sucess")?(navigate("/")):(toast({
-  title: 'Ragistretion Fail',
-  description: "Try to ragister again",
-  status: 'error',
-  duration: 2000,
-  isClosable: true,
-  position:"top"
-})))
-.catch(err=>alert("ERROR"))
-}
-console.log(auth_state)
+  function hendleSubmit() {
+    // console.log(loginCred)
+    dispatch(UserLogin_request(loginCred))
+      .then(res => (res.type === "Login_sucess") ? (
+
+        localStorage.setItem('user', JSON.stringify(res.payload)),
+        navigate("/"),
+        toast({
+          title: 'Login Sucessful',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+          position: "top"
+        })
+      ) :
+        (toast({
+          title: 'Login Fail',
+          description: "Invalid Credentials",
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+          position: "top"
+        })))
+      .catch(err => alert('something went wrong'))
+  }
+  // console.log(auth_state)
 
   let [userData, setUserData] = useState([]);
 
- 
+
   // --------------------------------------------------
   return (
     <>
-    {auth_state.auth_load?(<div>
-     <Text className="loading" >Plz wait....</Text>
-    </div>):("")}
-    
+
+
       <Box
         w={"355px"}
         h="540px"
         mx={"auto"}
         boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+       
       >
+
         <Box
           w="355px"
           h="540px"
@@ -74,7 +87,13 @@ console.log(auth_state)
           alignItems="center"
           bgColor={theme ? "blackAlpha.900" : "whiteAlpha.50"}
           color={theme ? "whiteAlpha.900" : "blackAlpha.900"}
+          
         >
+          {auth_state.auth_load ? (<div>
+          
+            <img className="loading" src="https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87_w200.webp"/>
+
+          </div>) : ("")}
           <Flex justify={"center"} ml="80px">
             <Text fontSize="15px" color="#84C225" fontWeight={"700"} m="20px">
               LOGIN
@@ -108,7 +127,7 @@ console.log(auth_state)
                   h={"40px"}
                   w="295px"
                   name="email"
-                  onChange={(e)=>hendleChange(e)}
+                  onChange={(e) => hendleChange(e)}
                 />
               </Box>
               <Box>
@@ -122,8 +141,8 @@ console.log(auth_state)
                       h={"40px"}
                       w="280px"
                       name="password"
-                  onChange={(e)=>hendleChange(e)}
-                    
+                      onChange={(e) => hendleChange(e)}
+
                     />
                   </Box>
                   <Box display="flex" flexDirection="column-reverse">
